@@ -30,8 +30,22 @@
 --What is the year to year change for the number of fatal incidents?
 
 
+select count(incident_date)-lag(count(incident_date))over(order by year(incident_date))  as "diff" , year(incident_date) as "year"
+from facilities 
+group by year(incident_date)
+order by year 
+
+
+
+
+	
 
 --What is the number of fatalities that received a citation?
+
+
+
+
+
 --What day of the week has the most fatalities and what is the overall percentage?
 --What is the number of fatalities involving welding?
 --Select the last 5 from the previous query
