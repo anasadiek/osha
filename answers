@@ -30,10 +30,10 @@
 --What is the year to year change for the number of fatal incidents?
 
 
-select count(incident_date)-lag(count(incident_date))over(order by year(incident_date))  as "diff" , year(incident_date) as "year"
-from facilities 
-group by year(incident_date)
-order by year 
+--select count(incident_date)-lag(count(incident_date))over(order by year(incident_date))  as "diff" , year(incident_date) as "year"
+--from facilities 
+--group by year(incident_date)
+--order by year 
 
 
 
@@ -43,13 +43,93 @@ order by year
 --What is the number of fatalities that received a citation?
 
 
+--select count(id) as "count" 
+--from facilities 
+--where citation = 'yes'
+
+
+
 
 
 
 --What day of the week has the most fatalities and what is the overall percentage?
+
+--with top1 as ( select top 1  count(DATENAME(weekday, incident_date)) as "count"  , DATENAME(weekday, incident_date) as "dayname" 
+--from facilities
+--group by DATENAME(weekday, incident_date)
+--order by count desc ) ,
+-- total as ( select count(id) as "total" from facilities ) 
+
+--select * , [top1].[count]/total.total  as "%"  from top1 , total 
+
+
+
+
 --What is the number of fatalities involving welding?
+
+--select count(*) as "count"  from facilities 
+
+--where description like '%weld%'
+
+
+
+
 --Select the last 5 from the previous query
+
+--select top 5 *  from facilities 
+
+--where description like '%weld%'
+--order by incident_date desc 
+
+
+
+
+
+
+
 --Select the top 5 states with the most fatal incidents.
+
+
+--select top 5  count(id) as "count" , state 
+
+--from facilities 
+--group by state 
+--order by count(id) desc
+
+
+
 --What are the top 5 states that had the most workplace fatalities from stabbings?
+
+--select  top 5 count(id) as "count" , state 
+--from facilities 
+--where description like '%stab%' 
+--group by state
+--order by count(id) desc
+
+
+
+
 --What are the top 10 states that had the most workplace fatalities from shootings?
+
+
+--select  top 10 count(id) as "count" , state 
+--from facilities 
+--where description like '%shot%' 
+--group by state
+--order by count(id) desc
+
+
+
+
 --What is the total number of shooting deaths per year?
+
+
+
+
+select   count(id) as "count" , year(incident_date) as "year"  
+from facilities 
+where description like '%shot%' 
+group by year(incident_date)
+order by year(incident_date)
+
+
