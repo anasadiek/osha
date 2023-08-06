@@ -1,14 +1,41 @@
-Test newly populated database Limit the results to the first 10 entries.
-The OSHA reported data contains duplicates. Lets remove all duplicate entries.crea temp table with duplicates , remove duplicates . 
-What is the number of reported incidents?
-What is the year to year change for the number of fatal incidents?
-What is the number of fatalities that received a citation?
-What day of the week has the most fatalities and what is the overall percentage?
-What is the number of fatalities involving welding?
-Select the last 5 from the previous query
-Select the top 5 states with the most fatal incidents.
-What are the top 5 states that had the most workplace fatalities from stabbings?
-What are the top 10 states that had the most workplace fatalities from shootings?
-What is the total number of shooting deaths per year?
+--Test newly populated database Limit the results to the first 10 entries.
+
+--select top 10 * from facilities
+
+--The OSHA reported data contains duplicates, create temp table with duplicates , remove duplicates . 
 
 
+
+--with cte as ( select incident_date , city , state , description  , [plan],citation , id , 
+--rn= ROW_NUMBER () over ( partition by state , city ,incident_date  order by state )  
+--from facilities  ) 
+--select * from cte where rn>1 ;
+
+
+--with cte as ( select incident_date , city , state , description  , [plan],citation , id , 
+--rn= ROW_NUMBER () over ( partition by state , city ,incident_date  order by state )  
+--from facilities  ) 
+--delete from cte where rn>1 ;
+
+
+
+
+--What is the number of reported incidents?
+
+
+
+--select count(incident_date) as "count" from facilities 
+
+
+--What is the year to year change for the number of fatal incidents?
+
+
+
+--What is the number of fatalities that received a citation?
+--What day of the week has the most fatalities and what is the overall percentage?
+--What is the number of fatalities involving welding?
+--Select the last 5 from the previous query
+--Select the top 5 states with the most fatal incidents.
+--What are the top 5 states that had the most workplace fatalities from stabbings?
+--What are the top 10 states that had the most workplace fatalities from shootings?
+--What is the total number of shooting deaths per year?
